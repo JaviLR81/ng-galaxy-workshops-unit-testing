@@ -1,0 +1,25 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <span>Contactos</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="openFormModal()">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+
+<mat-list>
+  <ng-container *ngFor="let contact of contacts">
+    <mat-list-item>
+      <mat-icon mat-list-icon>person</mat-icon>
+      <div mat-line>{{ contact.name }}</div>
+      <div mat-line>{{ contact.phone }}</div>
+      
+      <button color="primary" mat-icon-button (click)="openFormModal(contact)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button color="warn" mat-icon-button (click)="openRemoveConfirmModal(contact)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>

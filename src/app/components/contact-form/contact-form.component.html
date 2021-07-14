@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{ data.contact ? 'Editar' : 'Crear' }} Contacto</h1>
+
+<form mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name" autocomplete="off" />
+    <mat-icon matSuffix>person</mat-icon>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>Celular</mat-label>
+    <input matInput formControlName="phone" autocomplete="off" />
+    <mat-icon matSuffix>phone</mat-icon>
+  </mat-form-field>
+</form>
+
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button color="primary" [disabled]="form.invalid" (click)="save()">Guardar</button>
+</div>
