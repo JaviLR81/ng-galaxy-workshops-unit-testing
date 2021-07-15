@@ -21,7 +21,7 @@ export class ContactListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.load();
+    // this.load();
   }
 
   openFormModal(contact?: Contact) {
