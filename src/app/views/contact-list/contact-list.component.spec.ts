@@ -283,6 +283,10 @@ describe('Lista de Contactos', () => {
   //   expect(dialogSpy.open).toHaveBeenCalled();
   // })
 
+  it('Some test', () => {
+    expect(true).toBe(true);
+  })
+
 
 
 
