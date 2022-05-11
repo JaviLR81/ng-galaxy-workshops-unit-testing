@@ -17,7 +17,7 @@ import { ContactListComponent } from './contact-list.component'
   tampoco debemos de llamara los servicios como tal que hacen las peticiones
   HTTP
 
-  Podemos trabajar sin el HttpClientModule
+  Podemos trabajar sin el HttpClientModule y mejor usar el modulo de testing
 
   1.- HttpClientTestingModule lo podemos usar por que satisface el HttpClient
       pero no ejecuta los servicios como tal, lo que si debemos proveer
@@ -145,6 +145,11 @@ import { ContactListComponent } from './contact-list.component'
             entre más condicionales tengamos más dificil es subir
             las branches por todas las combinaciones que debemos de realizar
             en nuestras pruebas unitarias
+
+  NOTAS EXTRAS
+  No usamos HttpClientTestingModule si el componente como tal no hace una petición HTTP
+  si es un servicio esta bien o tal vez el router tal vez con la evaluación de directivas,
+  pero para funcionamiento igual podemos hacer un fake router
 */
 
 
@@ -163,7 +168,7 @@ describe('Lista de Contactos', () => {
     TestBed.configureTestingModule({
       declarations: [ContactListComponent],
       providers: [
-        // Probando las dependencias de el componente
+        // Probando las dependencias de el componente, substituyendo el comportamiento normal
         { provide: ContactsHttpService, useValue: contactsHttpSpy },
         { provide: MatDialog, useValue: dialogSpy },
       ],
@@ -268,27 +273,19 @@ describe('Lista de Contactos', () => {
     expect(dialogSpy.open).toHaveBeenCalled();
   })
 
-  // it('El componente debe abrir modal de confirmacion para eliminar', () => {
-  //   const newContact = { id: 0, name: 'Test', phone: 999 };
 
-  //   const dialogRef = { afterClosed: () => of(true) } as MatDialogRef<unknown>;
+  it('El componente debe abrir modal de confirmacion para eliminar', () => {
+    const newContact = { id: 0, name: 'Test', phone: 999 };
 
-  //   dialogSpy.open.and.returnValue(dialogRef);
+    const dialogRef = { afterClosed: () => of(true) } as MatDialogRef<unknown>;
 
-  //   spyOn(dialogRef, 'afterClosed').and.returnValue(of(newContact));
+    dialogSpy.open.and.returnValue(dialogRef);
 
+    spyOn(dialogRef, 'afterClosed').and.returnValue(of(newContact));
 
-  //   component.openFormModal(newContact);
+    component.openFormModal(newContact);
 
-  //   expect(dialogSpy.open).toHaveBeenCalled();
-  // })
-
-  it('Some test', () => {
-    expect(true).toBe(true);
+    expect(dialogSpy.open).toHaveBeenCalled();
   })
-
-
-
-
 
 })
